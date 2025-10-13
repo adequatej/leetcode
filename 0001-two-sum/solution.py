@@ -1,11 +1,15 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        hash_map = {}
-        for i in range(len(nums)):
+        numMap = {}
+        n = len(nums)
+
+        # Build hash table
+        for i in range(n):
             complement = target - nums[i]
-            if complement in hash_map:
-                return [hash_map[complement], i]
-            hash_map[nums[i]] = i
+            if complement in numMap:
+                return [numMap[complement], i]
+            numMap[nums[i]] = i
+        
         return []
 
         
