@@ -1,15 +1,13 @@
-from collections import Counter
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        # edge cases:
-        # check if same length first
-        # brute: sort and if each letter is hte same, then anagram
-        # Hashmpa; compare frequencies
+        # check if strings are same length
         if len(s) != len(t):
             return False
 
+        # create dict to store frequencies of each char
         counter = {}
 
+        # iterate through strings
         for char in s:
             counter[char] = counter.get(char, 0) + 1
         
@@ -17,8 +15,7 @@ class Solution:
             if char not in counter or counter[char] == 0:
                 return False
             counter[char] -= 1
-        
+
         return True
             
-       
-         
+        
