@@ -1,33 +1,31 @@
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        # consecutive sequence: longest in order of numbers: 1, 2, 3, 4, not patterns
-        # goal: find the longest sequence of numbers 
-        # array is unsorted, 
-        # 1: sort the array, so its in order, easily iterate through list to see if each number only adds by one,
-        # issue with this, sometiems longest sequence can be like 7, 8, 9, makes difficult
-        # O(n): can't do mulitple loops, at most one loop
-        # so then 2: store all numbers in a set
-        # run a loop to check if a number exists before it 
-        # then check if the next number is in the list, if so then increase streak
-        # use max(function) to compare lengths of all series and return it 
-        # key idea: only begin counting a sequence once the first number of a sequence is found 
+        if not nums:
+            return 0
 
-        seen = set(nums)
+        # convert array to set for O(1)  lookups
+        num_set = set(nums)
+
+        # longest will stoer best streak
         longest = 0
 
-        for num in seen:
-            # only start counting if this is the beginning
-            if num - 1 not in seen:
-                curr_num = num
-                curr_streak = 1
-            # keep extending sequence forward
-                while curr_num + 1 in seen:
+        # loop thoruhg each number in the set 
+        for num in num_set:
+            # only start counting a streak if num - 1 is NOT in the set (beginning of seq)
+            if num - 1 not in num_set:
+                curr_num = num # is the number we're curr checking
+                curr_length = 1 # tracks how long this part. streak is 
+    
+                # if it is the start, keep checking if num+1 exists in the set (count up length of that streak)
+                while curr_num + 1 in num_set:
+                    # go to next num
                     curr_num += 1
-                    curr_streak += 1
 
-                # update longest streak found
-                longest = max(longest, curr_streak)
-            
-        return longest
+                    # increment lenght of the curr_streak
+                    curr_length += 1
+                
+                 # update longest if streak beats it
+                longest = max(longest, curr_length)
 
-        
+         # return longest consecutive sequence lenght found
+        return longest if longest > 0 else 0
